@@ -1,0 +1,27 @@
+Evaluate the integral of f(x) = 1 − exp(-x) on [0, 4] using the
+Simpson's 1/3 rule with n = 5.
+kill(all)$
+f(x) := 1 − %e^(-x);
+'a = a: 0;
+'b = b: 4;
+wxplot2d(f(x), [x, a, b]);
+print("Computing", 'integrate(f(x), x, a, b), 'dx)$
+'n = n: 5;
+'h = h: (b - a) / n;
+I: 0$
+for i: 0 thru n do
+(
+    x[i]: a + (i * h),
+    y[i]: float(f(x[i])),
+    print('x[i] = x[i], ";", 'y[i] = y[i])
+)$
+sum1: 0$
+sum2: 0$
+for i: 1 thru n - 1 do (
+    if (equal(mod(i, 2), 0)) then
+        sum1: float(sum1 + y[i])
+    else
+        sum2: float(sum2 + y[i])
+)$
+I: float((3 / 8) * h * (y[0] + 2 * sum1 + 4 * sum2 + y[n]))$
+print("Thus,", 'integrate(f(x), x, a, b), "dx ≈", I)$
