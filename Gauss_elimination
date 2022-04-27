@@ -1,0 +1,47 @@
+kill(all)$
+load(eigen)$
+keepfloat: true$
+'A = A: matrix(
+    [2.0, 4.0, 7.0],
+    [3.0, 3.0, 2.0],
+    [5.0, 6.0, 3.0]
+);
+'B = B: matrix(
+    [4.0],
+    [8.0],
+    [0.0]
+);
+'X = X: matrix(
+    [x],
+    [y],
+    [z]
+);
+print("Augmented Matrix")$
+Aug: addcol(A, B);
+print("Forward Elimination")$
+n:length(A[1])$
+for k: 1 thru n - 1 do(
+    for i: k + 1 thru n do(
+        factor: Aug[i, k] / Aug[k, k],
+        print("R", i, "-> R", i, "-", factor, "* R", k),
+        Aug[i]: Aug[i] - factor * Aug[k],
+        print(Aug)
+    )
+)$
+print("System of Equations")$
+AA: innerproduct(submatrix(Aug, n + 1), X)$
+BB: col(Aug, n + 1)$
+for i: 1 thru n do(
+    print(AA[i, 1] = BB[i, 1])
+)$
+print("Backward Substitution")$
+X1: zeromatrix(n, 1)$
+X[n, 1] = X1[n, 1]: Aug[n, n + 1] / Aug[n, n];
+for i: n - 1 thru 1 step -1 do(
+    X1[i, 1]: Aug[i, n + 1],
+    for k: i + 1 thru n do(
+        X1[i, 1]: X1[i, 1] - Aug[i, k] * X1[k, 1]
+    ),
+    print(X[i, 1], "=", X1[i, 1] / Aug[i, i]),
+    X1[i, 1]: X1[i, 1] / Aug[i, i]
+)$
