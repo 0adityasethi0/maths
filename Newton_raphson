@@ -1,0 +1,13 @@
+kill(all)$
+f(x):= x - tan(x);
+define(df(x), diff(f(x), x));
+'x0 = x0: 4.6;
+for i: 1 thru 5 do (
+    if(equal(f(x0), 0))
+        then return()
+    else
+        float(x1: (x0 - f(x0) / df(x0))),
+    x0:x1,
+print("iteration", i, "=>", 'x = float(x1)))$;
+print('x = float(x1))$
+wxplot2d(f(x), [x, 4.4, 4.6]);
