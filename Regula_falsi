@@ -1,0 +1,18 @@
+kill(all)$
+'x0 = x0: 1;
+'x1 = x1: 2;
+f(x):= x^3 + 2 * x^2 + 10 * x - 20;
+if(float(f(x0) * f(x1) > 0))
+then
+    print("change values")
+else
+    for i:1 thru 6 do (
+        x2: float(((x0*f(x1))-(x1*f(x0)))/(f(x1)-f(x0))),
+        if (f(x2) * f(x1) < 0)
+        then
+            x0: x2
+        else
+            x1: x2,
+        print("iteration", i, "=>", 'x = x2)
+  )$
+print('x = x2)$
