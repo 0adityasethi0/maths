@@ -1,0 +1,17 @@
+kill(all)$
+'a = a: 1.3;
+'b = b: 1.5;
+f(x) := tan(x) - x - 5;
+if (f(a) * f(b) > 0) then
+    print(
+        "Change Interval"
+    )
+else
+    for i: 1 thru 10 do (
+        m: (a + b) / 2,
+        if (f(m) * f(b) > 0) then
+            b: m
+        else
+            a: m
+    )$
+print("Root is", m)$
