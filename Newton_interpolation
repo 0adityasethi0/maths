@@ -1,0 +1,30 @@
+Construct the Newton's interpolation polynomial for the
+following given data:
+x   : 0 : 1 : 2 : 3 :
+f(x): 1 : 2 : 5 : 7 :
+Hence, interpolate at x = 3/2.
+kill(all)$
+'x = x: [0, 1, 2, 3];
+y: zeromatrix(4, 4)$
+y[1][1]: 1$
+y[2][1]: 2$
+y[3][1]: 5$
+y[4][1]: 7$
+'y=y;
+n: length(x)$
+for i: 2 thru n do (
+    for j: 1 thru n - i + 1 do (
+        y[j][i]: (y[j + 1][i - 1] - y[j][i-1]) / (x[j + i - 1] - x[j])
+    )
+)$
+x_t: 1$
+f: y[1][1]$              
+for j: 1 thru n - 1 do (        
+    x_t: x_t * ('x - x[j]),
+    f: f + y[1][j + 1] * x_t,
+    print("iteration", j, "=>",f,"=>", expand(f))
+)$
+'b = y;
+'f('x) = expand(f);
+print("f(3 / 2) =", ev(f, x = 3 / 2))$
+wxplot2d([f, [discrete, x, args(map(first, y))]], ['x,-1, 5], [legend, "f(x)", "given"]);
