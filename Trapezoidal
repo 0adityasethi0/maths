@@ -1,0 +1,22 @@
+Evaluate the integral of f(x) = 8 + 4 cos x on [0, π/2] using
+the composite trapezoidal rule with n = 4.
+kill(all)$
+f(x) := 8 + 4 * cos(x);
+'a = a: 0;
+'b = b: %pi / 2;
+wxplot2d(f(x), [x, a, b]);
+print("Computing", 'integrate(f(x), x, a, b), 'dx)$
+'n = n: 4;
+'h = h: (b - a) / n;
+I: 0$
+for i: 0 thru n - 1 do
+(
+    x[i]: a + (i * h),
+    x[i + 1]: a + ((i + 1) * h),
+    y[i]: f(x[i]),
+    y[i + 1]: f(x[i + 1]),
+    t: float(h / 2 * (y[i] + y[i + 1])),
+    I: float(I + t),
+    print('integrate(f(x), x, x[i], x[i + 1]), 'dx, "≈", t)
+)$
+print("Thus,", 'integrate(f(x), x, a, b), 'dx, "≈", I)$
