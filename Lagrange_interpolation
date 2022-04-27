@@ -1,0 +1,39 @@
+If y(0) = 1, y(1) = 3, y(3) = 55, find the
+corresponding interpolating polynomial f(x) using
+the Lagrangian interpolation. Also find f(e) and
+f(3/2).
+METHOD1
+kill(all)$
+p = p: [
+    [ 0,  1],
+    [ 1,  3],
+    [ 3, 55]
+];
+n: 3$
+Y: 0$
+for i: 1 thru n do (
+    l_i: 1,
+    for j: 1 thru n do (
+        if notequal(i, j) then
+            l_i: l_i * (x - p[j][1]) / (p[i][1] - p[j][1])
+    ),
+    Y: Y + l_i * p[i][2],
+    print("iteration", i, "=>", Y, "=>", expand(Y))
+)$
+'f(x) = f: expand(Y);
+print("f(e) =", ev(f, x = %e))$
+print("f(1.5) =", ev(f, x = 3 / 2))$
+wxplot2d([f, [discrete, map(first, p), map(second, p)]], [x, -3, 4], [legend, "f(x)", "given"]);
+METHOD2
+kill(all)$
+load(interpol)$
+p = p: [
+    [ 0,  1],
+    [ 1,  3],
+    [ 3, 55]
+];
+'f(x) = f: lagrange(p);
+'f(x) = f: expand(f);
+print("f(e) =", ev(f, x = %e))$
+print("f(1.5) =", ev(f, x = 3 / 2))$
+wxplot2d([f, [discrete, map(first, p), map(second, p)]], [x, -3, 4], [legend, "f(x)", "given"]);
