@@ -1,0 +1,15 @@
+kill(all)$
+'x0 = x0: 1;
+'x1 = x1: 3;
+f(x):= x^3 − 4;
+for i: 1 thru 5 do (
+    if(equal(f(x0), f(x1)))
+        then return()
+    else
+        x2: (x0 * f(x1) - x1 * f(x0)) / (f(x1) - f(x0)),
+    x0: x1,
+    x1: x2,  
+    print("iteration", i, 'x = float(x2))
+)$
+print('x = float(x2))$
+wxplot2d(f(x), [x, 1.2, 1.8]);
